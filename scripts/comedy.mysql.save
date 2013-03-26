@@ -1,0 +1,244 @@
+CREATE DATABASE IF NOT EXISTS `ComedyDB` DEFAULT CHARACTER SET 'utf8' DEFAULT COLLATE 'utf8_unicode_ci';
+
+CREATE USER 'ComedyClub'@'localhost' IDENTIFIED BY 'SFComedyClub2013';
+
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, CREATE TEMPORARY TABLES, CREATE VIEW, EVENT, TRIGGER, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EXECUTE ON `ComedyDB`.* TO 'ComedyClub'@'localhost';
+
+FLUSH PRIVILEGES;
+
+CREATE TABLE IF NOT EXISTS `ComedyDB`.`Users` (
+	`id` INT NOT NULL AUTO_INCREMENT, 
+	`uid` VARCHAR(8) NOT NULL COLLATE 'utf8_unicode_ci', 
+	`name` VARCHAR(100) NOT NULL COLLATE 'utf8_unicode_ci', 
+	`nick` VARCHAR(100) NOT NULL COLLATE 'utf8_unicode_ci', 
+	`cell` VARCHAR(15)  NOT NULL COLLATE 'utf8_unicode_ci' DEFAULT 'XXX-XXX-XXXX',
+	`email` VARCHAR(200) NOT NULL COLLATE 'utf8_unicode_ci',
+	`privileges` VARCHAR(10) NOT NULL COLLATE 'utf8_unicode_ci' DEFAULT 'pending', 
+	`timestamp` DATETIME NOT NULL,
+	UNIQUE KEY (`id`),
+	UNIQUE KEY (`uid`),
+	UNIQUE KEY (`nick`),
+	PRIMARY KEY (`uid`, `name`)
+) 	CHARACTER SET 'utf8',
+	COLLATE 'utf8_unicode_ci',
+	ENGINE = `InnoDB`;
+
+CREATE TABLE IF NOT EXISTS `ComedyDB`.`Security` (
+	`id` INT NOT NULL AUTO_INCREMENT, 
+	`uid` VARCHAR(8) NOT NULL COLLATE 'utf8_unicode_ci', 
+	`password` VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci', 
+	`timestamp` DATETIME NOT NULL,
+	UNIQUE KEY (`id`),
+	UNIQUE KEY (`uid`),
+	PRIMARY KEY (`id`, `uid`),
+	FOREIGN KEY (`uid`) REFERENCES Users (`uid`)
+) 	DEFAULT CHARACTER SET 'utf8',
+	DEFAULT COLLATE 'utf8_unicode_ci',
+	ENGINE = `InnoDB`;
+	
+	
+CREATE TABLE IF NOT EXISTS `ComedyDB`.`Setup` (
+	`id` INT NOT NULL AUTO_INCREMENT, 
+	`line` TEXT NOT NULL COLLATE 'utf8_unicode_ci', 
+	`uid` VARCHAR(8) NOT NULL COLLATE 'utf8_unicode_ci', 
+	`timestamp` DATETIME NOT NULL,
+	UNIQUE KEY (`id`),
+	PRIMARY KEY (`id`, `uid`), 
+	FOREIGN KEY (`uid`) REFERENCES Users (`uid`)
+) 	CHARACTER SET 'utf8',
+	COLLATE 'utf8_unicode_ci',
+	ENGINE = `InnoDB`;
+	
+
+CREATE TABLE IF NOT EXISTS `ComedyDB`.`Punchline` (
+	`id` INT NOT NULL AUTO_INCREMENT, 
+	`sid` INT NOT NULL, 
+	`line` TEXT NOT NULL COLLATE 'utf8_unicode_ci', 
+	`uid` VARCHAR(8) NOT NULL COLLATE 'utf8_unicode_ci', 
+	`timestamp` DATETIME NOT NULL,
+	UNIQUE KEY (`id`),
+	PRIMARY KEY (`id`, `uid`), 
+	FOREIGN KEY (`sid`) REFERENCES Setup (`id`),
+	FOREIGN KEY (`uid`) REFERENCES Users (`uid`)
+) 	CHARACTER SET 'utf8',
+	COLLATE 'utf8_unicode_ci',
+	ENGINE = `InnoDB`;
+	
+CREATE TABLE IF NOT EXISTS `ComedyDB`.`Brainstorm` (
+	`id` INT NOT NULL AUTO_INCREMENT, 
+	`ref_id` INT NOT NULL, 
+	`line` TEXT NOT NULL COLLATE 'utf8_unicode_ci', 
+	`uid` VARCHAR(8) NOT NULL COLLATE 'utf8_unicode_ci', 
+	`timestamp` DATETIME NOT NULL,
+	UNIQUE KEY (`id`),
+	PRIMARY KEY (`id`, `uid`), 
+	FOREIGN KEY (`uid`) REFERENCES Users (`uid`)
+) 	CHARACTER SET 'utf8',
+	COLLATE 'utf8_unicode_ci',
+	ENGINE = `InnoDB`;
+	
+CREATE TABLE IF NOT EXISTS `ComedyDB`.`Dictionary` (
+	`wid` INT NOT NULL AUTO_INCREMENT,
+	`english` varchar(100) NOT NULL COLLATE 'utf8_unicode_ci',
+	`russian` varchar(200) NOT NULL COLLATE 'utf8_unicode_ci',
+	`ukrainian` varchar(200) NOT NULL COLLATE 'utf8_unicode_ci',
+	PRIMARY KEY (`wid`),
+	UNIQUE KEY `wid` (`wid`)
+) 	CHARACTER SET 'utf8',
+	COLLATE 'utf8_unicode_ci',
+	ENGINE = `InnoDB`;
+	
+
+
+INSERT INTO `ComedyDB`.`Users` (`uid`, `name`, `nick`, `cell`, `email`, `privileges`, `timestamp`) VALUES ('741ebb6f', 'Pavel', 'Pavel Anisimov', '9255502853' ,'anisimov@hotmail.com', 'admin', '2013-01-29 09:40:10');
+
+INSERT INTO `ComedyDB`.`Security` (`uid`, `password`, `timestamp`) VALUES ('741ebb6f', 'russia', '2013-01-29 09:40:10');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Joke', 'Шутка', 'Жарт');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Jokes', 'Шутки', 'Жарти');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Sketch', 'Сценка', 'Скетч');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Sketches', 'Сценки', 'Скетчи');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Idea', 'Идея', 'Iдея');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Ideas', 'Идеи', 'Iдеї');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Song', 'Песня', 'Пісні');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Setup', 'Подача', 'Подача');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Punchline', 'Добивка', 'Добiвка');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Punchlines', 'Добивки', 'Добiвкi');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Question', 'Вопрос', 'Запитання');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Questions', 'Вопросы', 'Запитаннi');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Welcome!', 'Привет!', 'Просимо!');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('San Francisco Russian Comedy Club', 'Сан-франциский Камеди Клуб', 'Сан-франциско Комеді Клуб');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Answer it', 'Добить', 'Добити');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Brainstorms', 'Брейнштормы', 'Мозковий штурм');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Previous', 'Предыдущие', 'Попередні');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Next', 'Следующие', 'Наступні');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Add a Question to a brainstorm', 'Добавь вопрос для брейн-шторма', 'Додай питання для брейн-шторму');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Missing your answer', 'Вашего ответа нет', 'Вашої відповіді немає');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Total', 'Всего', 'Всього');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('answers', 'ответов', 'відповідей');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Welcome to the SF Russian Comedy Club writers group web tool', 'Добро пожаловать в группу авторов СФ Комеди Клуба', 'Ласкаво просимо в групу авторів СФ Камеді Клабу');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Copyright Pavel Anisimov, WC-KVN, SF-Comedy (2007-12)', 'Копирайт Павел Анисимов, WC-КВН, SF-Комеди (2007-12)', 'Копiрайт Павло Анісімов, WC-КВН, СФ-Комеді ');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES ('Сан Хозе Шаркс недавно преобрел игрока из Кении', '741ebb6f', '2013-01-29 17:26:34');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', 'Сан Хозе Шаркс недавно преобрел игрока из Кении', '741ebb6f', '2013-01-29 17:26:34');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES ('Работники БАРТа провели очередную забастовку', '741ebb6f', '2013-01-29 17:42:37');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', 'Работники БАРТа провели очередную забастовку', '741ebb6f', '2013-01-29 17:42:37');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Thank you for your input', 'Спасибо за ваш вклад', 'Дякуємо за ваш внесок');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES ('В Сан-франциско прошел турнир по игре в городки', '741ebb6f', '2013-01-29 17:48:31');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', 'В Сан-франциско прошел турнир по игре в городки', '741ebb6f', '2013-01-29 17:48:31');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Write a setup for a joke here', 'Напиши свой вопрос на брейншторм', 'Напиши своє питання на мозковий штурм');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES ('Сборная России по футболу проведёт предсезонный сбор под Сызранью', '741ebb6f', '2013-01-29 18:18:53');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', 'Сборная России по футболу проведёт предсезонный сбор под Сызранью', '741ebb6f', '2013-01-29 18:18:53');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES ('Компания Apple собирается судиться с минским заводом Электроприбор', '741ebb6f', '2013-01-29 18:21:12');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', 'Компания Apple собирается судиться с минским заводом Электроприбор', '741ebb6f', '2013-01-29 18:21:12');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES ('Вчера вечером в окресностях Twin-Peaks был замечен Йетти', '741ebb6f', '2013-01-29 18:23:29');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', 'Вчера вечером в окресностях Twin-Peaks был замечен Йетти', '741ebb6f', '2013-01-29 18:23:29');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES ('Очередной лав-парад было решено перенести в Окленд', '741ebb6f', '2013-01-29 18:24:07');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', 'Очередной лав-парад было решено перенести в Окленд', '741ebb6f', '2013-01-29 18:24:07');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES ('Недавно в Сан-франциско прошла акция в потдержку панк-группы Pussy-Riot', '741ebb6f', '2013-01-29 18:25:50');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', 'Недавно в Сан-франциско прошла акция в потдержку панк-группы Pussy-Riot', '741ebb6f', '2013-01-29 18:25:50');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES ('Тридцать лет и три года лежал Илья Муромец на печи', '741ebb6f', '2013-01-29 18:29:58');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', 'Тридцать лет и три года лежал Илья Муромец на печи', '741ebb6f', '2013-01-29 18:29:58');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES ('В детстве Леша переболел коклюшем', '741ebb6f', '2013-01-29 18:30:48');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', 'В детстве Леша переболел коклюшем', '741ebb6f', '2013-01-29 18:30:48');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES ('Тук-тук. Кто там? INS. INS кто?', '741ebb6f', '2013-01-30 04:38:40');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', 'Тук-тук. Кто там? INS. INS кто?', '741ebb6f', '2013-01-30 04:38:40');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES ('В детстве я занимался в кружке моделирования', '741ebb6f', '2013-01-30 04:44:39');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', 'В детстве я занимался в кружке моделирования', '741ebb6f', '2013-01-30 04:44:39');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES ('Поговаривают, что плата за проезд чеоез Golden Gate Bridge поднимится до 20 долларов', '741ebb6f', '2013-01-30 04:49:31');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', 'Поговаривают, что плата за проезд чеоез Golden Gate Bridge поднимится до 20 долларов', '741ebb6f', '2013-01-30 04:49:31');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES ('В Apple app store появилось дополнение для алкоголиков', '741ebb6f', '2013-01-30 05:06:32');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', 'В Apple app store появилось дополнение для алкоголиков', '741ebb6f', '2013-01-30 05:06:32');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES (' В Вест-Окленде, археологи сделали сенсационное открытие! ', '741ebb6f', '2013-01-30 06:31:50');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', ' В Вест-Окленде, археологи сделали сенсационное открытие! ', '741ebb6f', '2013-01-30 06:31:50');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES ('Скандалом завершился чемпионат Эстонии по быстрым шахматам', '741ebb6f', '2013-01-30 06:32:26');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', 'Скандалом завершился чемпионат Эстонии по быстрым шахматам', '741ebb6f', '2013-01-30 06:32:26');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES ('Ист Пало Алто стал городом побратимом Сыктывкара', '741ebb6f', '2013-01-30 06:32:40');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', 'Ист Пало Алто стал городом побратимом Сыктывкара', '741ebb6f', '2013-01-30 06:32:40');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES ('Сомалийские пираты захватили баржу со слабительным (касторкой, пургеном, и т.д.)', '741ebb6f', '2013-01-30 06:32:49');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', 'Сомалийские пираты захватили баржу со слабительным (касторкой, пургеном, и т.д.)', '741ebb6f', '2013-01-30 06:32:49');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES ('Кения приступила к выпуску самого экономичного автомобиля', '741ebb6f', '2013-01-30 06:33:04');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', 'Кения приступила к выпуску самого экономичного автомобиля', '741ebb6f', '2013-01-30 06:33:04');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES ('Элтон Джон отказался выступать на фестивале экстримальной музыки', '741ebb6f', '2013-01-30 06:33:13');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', 'Элтон Джон отказался выступать на фестивале экстримальной музыки', '741ebb6f', '2013-01-30 06:33:13');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES (' На аукцион Сотби была выставленна ранее неизвестная картина Пикасо', '741ebb6f', '2013-01-30 06:33:22');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', ' На аукцион Сотби была выставленна ранее неизвестная картина Пикасо', '741ebb6f', '2013-01-30 06:33:22');
+
+INSERT INTO `ComedyDB`.`Setup` (`line`, `uid`, `timestamp`) VALUES ('Барак Обама решил выделить 100 миллиардов долларов', '741ebb6f', '2013-01-30 06:33:38');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('0', 'Барак Обама решил выделить 100 миллиардов долларов', '741ebb6f', '2013-01-30 06:33:38');
+
+INSERT INTO `ComedyDB`.`Punchline` (`sid`, `line`, `uid`, `timestamp`) VALUES ('9', 'Теперь Илюша - well done', '741ebb6f', '2013-01-30 07:05:04');
+
+INSERT INTO `ComedyDB`.`Brainstorm` (`ref_id`, `line`, `uid`, `timestamp`) VALUES ('9', 'Теперь Илюша - well done', '741ebb6f', '2013-01-30 07:05:04');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('Members', 'Резиденты', 'Резиденти');
+
+INSERT INTO `ComedyDB`.`Dictionary` (`english`, `russian`, `ukrainian`) VALUES ('new', 'новых', 'нових');
+		

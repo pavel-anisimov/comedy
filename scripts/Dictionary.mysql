@@ -1,0 +1,70 @@
+-- phpMyAdmin SQL Dump
+-- version 3.5.4
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Jan 29, 2013 at 11:42 PM
+-- Server version: 5.5.15
+-- PHP Version: 5.4.11
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `comedy`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Dictionary`
+--
+
+CREATE TABLE IF NOT EXISTS `Dictionary` (
+  `wid` int(11) NOT NULL AUTO_INCREMENT,
+  `english` varchar(100) NOT NULL,
+  `russian` varchar(300) NOT NULL,
+  `ukrainian` varchar(300) NOT NULL,
+  PRIMARY KEY (`wid`),
+  UNIQUE KEY `wid` (`wid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
+
+--
+-- Dumping data for table `Dictionary`
+--
+
+INSERT INTO `Dictionary` (`wid`, `english`, `russian`, `ukrainian`) VALUES
+(1, 'Jokes', 'Ð¨ÑƒÑ‚ÐºÐ°', 'Ð–Ð°Ñ€Ñ‚'),
+(2, 'Jokes', 'Ð¨ÑƒÑ‚ÐºÐ¸', 'Ð–Ð°Ñ€Ñ‚Ð¸'),
+(3, 'Sketch', 'Ð¡Ñ†ÐµÐ½ÐºÐ°', 'Ð¡ÐºÐµÑ‚Ñ‡'),
+(4, 'Sketches', 'Ð¡Ñ†ÐµÐ½ÐºÐ¸', 'Ð¡ÐºÐµÑ‚Ñ‡Ð¸'),
+(5, 'Idea', 'Ð˜Ð´ÐµÑ', 'Ð”ÑƒÐ¼ÐºÐ°'),
+(6, 'Ideas', 'Ð˜Ð´ÐµÐ¸', 'IÐ´ÐµÑ—'),
+(7, 'Song', 'ÐŸÐµÑÐ½Ñ', 'ÐŸÑ–ÑÐ½Ñ'),
+(8, 'Songs', 'ÐŸÐµÑÐ½Ð¸', 'ÐŸÑ–ÑÐ½Ñ–'),
+(9, 'Setup', 'ÐŸÐ¾Ð´Ð°Ñ‡Ð°', 'ÐŸÐ¾Ð´Ð°Ñ‡Ð°'),
+(10, 'Punchline', 'Ð”Ð¾Ð±Ð¸Ð²ÐºÐ°', 'Ð”Ð¾Ð±iÐ²ÐºÐ°'),
+(11, 'Punchlines', 'Ð”Ð¾Ð±Ð¸Ð²ÐºÐ¸', 'Ð”Ð¾Ð±iÐ²Ðºi'),
+(12, 'Question', 'Ð’Ð¾Ð¿Ñ€Ð¾Ñ', 'Ð—Ð°Ð¿Ð¸Ñ‚Ð°Ð½Ð½Ñ'),
+(13, 'Questions', 'Ð’Ð¾Ð¿Ñ€Ð¾ÑÑ‹', 'Ð—Ð°Ð¿Ð¸Ñ‚Ð°Ð½Ð½Ñ'),
+(14, 'Welcome!', 'ÐŸÑ€Ð¸Ð²ÐµÑ‚!', 'ÐŸÑ€Ð¾ÑÐ¸Ð¼Ð¾!'),
+(15, 'San Francisco Russian Comedy Club', 'Ð¡Ð°Ð½-Ñ„Ñ€Ð°Ð½Ñ†Ð¸ÑÐºÐ¸Ð¹ Ð ÑƒÑÑÐºÐ¸Ð¹ ÐšÐ¾Ð¼ÐµÐ´Ð¸Ð¹Ð½Ñ‹Ð¹  ÐšÐ»ÑƒÐ±', 'Ð¡Ð°Ð½-Ñ„Ñ€Ð°Ð½Ñ†Ð¸ÑÐºÐ¾ Ð Ð¾ÑÑ–Ð¹ÑÑŒÐºÐ¾Ñ— ÐšÐ¾Ð¼ÐµÐ´Ñ– ÐšÐ»ÑƒÐ±'),
+(16, 'Answer it', 'Ð”Ð¾Ð±Ð¸Ñ‚ÑŒ', 'Ð”Ð¾Ð±Ð¸Ñ‚Ð¸'),
+(17, 'Brainstorms', 'Ð‘Ñ€ÐµÐ¹Ð½ÑˆÑ‚Ð¾Ñ€Ð¼Ñ‹', 'ÐœÐ¾Ð·ÐºÐ¾Ð²Ð¸Ð¹ ÑˆÑ‚ÑƒÑ€Ð¼'),
+(18, 'Welcome to the SF Russian Comedy Club writing''s group web tool', 'Ð”Ð¾Ð±Ñ€Ð¾ Ð¿Ð¾Ð¶Ð°Ð»Ð¾Ð²Ð°Ñ‚ÑŒ Ð² Ð³Ñ€ÑƒÐ¿Ð¿Ñƒ Ð°Ð²Ñ‚Ð¾Ñ€Ð¾Ð² Ð ÑƒÑÑÐºÐ¾Ð³Ð¾ ÐšÐ°Ð¼ÐµÐ´Ð¸ ÐšÐ»Ð°Ð±Ð°', 'Ð›Ð°ÑÐºÐ°Ð²Ð¾ Ð¿Ñ€Ð¾ÑÐ¸Ð¼Ð¾ Ð² Ð³Ñ€ÑƒÐ¿Ñƒ Ð°Ð²Ñ‚Ð¾Ñ€Ñ–Ð² Ð Ð¾ÑÑ–Ð¹ÑÑŒÐºÐ¾Ð³Ð¾ ÐšÐ°Ð¼ÐµÐ´Ñ– ÐšÐ»Ð±'),
+(19, 'Previous', 'ÐŸÑ€ÐµÐ´Ñ‹Ð´ÑƒÑ‰Ð¸Ðµ', 'ÐŸÐ¾Ð¿ÐµÑ€ÐµÐ´Ð½Ñ–'),
+(20, 'Next', 'Ð¡Ð»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ðµ', 'ÐÐ°ÑÑ‚ÑƒÐ¿Ð½Ñ–'),
+(21, 'Add a Question to a brainstorm', 'Ð”Ð¾Ð±Ð°Ð²ÑŒ Ð²Ð¾Ð¿Ñ€Ð¾Ñ Ð´Ð»Ñ Ð±Ñ€ÐµÐ¹-ÑˆÑ‚Ð¾Ñ€Ð¼Ð°', 'Ð”Ð¾Ð´Ð°Ð¹ Ð¿Ð¸Ñ‚Ð°Ð½Ð½Ñ Ð´Ð»Ñ Ð±Ñ€ÐµÐ¹Ð½-ÑˆÑ‚Ð¾Ñ€Ð¼Ñƒ'),
+(22, 'Punchlines', 'ÐžÑ‚Ð²ÐµÑ‚Ð¾Ð²', 'Ð’Ñ–Ð´Ð¿Ð¾Ð²Ñ–Ð´ÐµÐ¹'),
+(23, 'Missing your answer', 'Ð’Ð°ÑˆÐµÐ³Ð¾ Ð¾Ñ‚Ð²ÐµÑ‚Ð° Ð½ÐµÑ‚', 'Ð’Ð°ÑˆÐ¾Ñ— Ð²Ñ–Ð´Ð¿Ð¾Ð²Ñ–Ð´Ñ– Ð½ÐµÐ¼Ð°Ñ”'),
+(24, 'Total', 'Ð’ÑÐµÐ³Ð¾', 'Ð’ÑÑŒÐ¾Ð³Ð¾');
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
