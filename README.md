@@ -11,8 +11,8 @@ Automate jokes, sketches and routines writing process.
 
 5. Functionality: 
      a) Application is restricted only to club residents (performers, writers and management group) with different access writes
-     b) Allow users to write jokes, sketches, songs, routines etc and share with the club members
-     c) Allow user to create jokes collaboratively in partnership with other club members
+     b) Allow users to write jokes, sketches, songs, routines etc and share with the club members<br>
+     c) Allow user to create jokes collaboratively in partnership with other club members<br>
      d) Allows the management group to keep track of the writers’ progress by accessing a full statistic on writers by amount of joke setups, joke punch-lines or fully developed material
      e) Increase the productivity of the writing group by 400%
 
