@@ -9,7 +9,7 @@
 5. <b>Intent:</b><br>
 Automate jokes, sketches and routines writing process.
 
-5. <b>Functionality: <br>
+5. <b>Functionality:</b> <br>
      a) Application is restricted only to club residents (performers, writers and management group) with different access writes<br>
      b) Allow users to write jokes, sketches, songs, routines etc and share with the club members<br>
      c) Allow user to create jokes collaboratively in partnership with other club members<br>
